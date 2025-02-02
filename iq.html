@@ -1,0 +1,81 @@
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IQ Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .question { margin: 20px 0; }
+        button { padding: 10px 20px; margin-top: 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>IQ Test By AI</h1>
+    <div id="quiz"></div>
+    <button onclick="submitQuiz()">Submit</button>
+    <h2 id="result"></h2>
+    
+    <script>
+        const questions = [
+            { q: "What is 5 + 3?", options: ["5", "8", "12", "10"], answer: 1 },
+            { q: "What comes next: 2, 4, 8, __?", options: ["10", "12", "16", "20"], answer: 2 },
+            { q: "If all Bloops are Razzies and all Razzies are Lazzies, then are all Bloops Lazzies?", options: ["Yes", "No"], answer: 0 },
+            { q: "What is the next prime number after 11?", options: ["13", "15", "17", "19"], answer: 0 },
+            { q: "If a train travels 60 miles per hour for 3 hours, how far does it go?", options: ["120 miles", "150 miles", "180 miles", "200 miles"], answer: 2 },
+            { q: "Which shape has the most sides?", options: ["Hexagon", "Octagon", "Decagon", "Dodecagon"], answer: 3 },
+            { q: "What is 15% of 200?", options: ["25", "30", "35", "40"], answer: 1 },
+            { q: "Solve for x: 3x + 7 = 22", options: ["3", "5", "7", "9"], answer: 1 },
+            { q: "What is the square root of 144?", options: ["10", "11", "12", "13"], answer: 2 },
+            { q: "If a person walks 5 km per hour, how long will it take to walk 20 km?", options: ["2 hours", "3 hours", "4 hours", "5 hours"], answer: 3 },
+            { q: "A clock shows 3:15. What is the angle between the hour and minute hands?", options: ["7.5°", "15°", "22.5°", "30°"], answer: 0 },
+            { q: "What number should come next in the sequence: 1, 1, 2, 3, 5, __?", options: ["6", "7", "8", "9"], answer: 2 },
+            { q: "Which planet is closest to the sun?", options: ["Venus", "Mercury", "Mars", "Earth"], answer: 1 },
+            { q: "If x = 4 and y = 3, what is x² + y²?", options: ["12", "16", "24", "25"], answer: 3 },
+            { q: "A farmer has 10 cows, 5 chickens, and 3 goats. How many legs are there in total?", options: ["50", "54", "56", "60"], answer: 2 },
+            { q: "What is the result of 9! (9 factorial)?", options: ["362880", "40320", "5040", "720"], answer: 0 },
+            { q: "Which of these words is a synonym for 'perplexed'?", options: ["Certain", "Confused", "Calm", "Clever"], answer: 1 },
+            { q: "What is the smallest prime number?", options: ["1", "2", "3", "5"], answer: 1 },
+            { q: "Solve for x: 2x - 5 = 9", options: ["5", "6", "7", "8"], answer: 2 },
+            { q: "What is 111 in binary?", options: ["3", "5", "6", "7"], answer: 3 },
+            { q: "How many degrees are in a right angle?", options: ["30°", "60°", "90°", "120°"], answer: 2 },
+            { q: "Which of these numbers is a perfect square?", options: ["24", "36", "48", "60"], answer: 1 }
+        ];
+        
+        const quizDiv = document.getElementById("quiz");
+        
+        questions.forEach((q, index) => {
+            let questionDiv = document.createElement("div");
+            questionDiv.classList.add("question");
+            questionDiv.innerHTML = `<p>${index + 1}. ${q.q}</p>`;
+            
+            q.options.forEach((option, i) => {
+                questionDiv.innerHTML += `<input type='radio' name='q${index}' value='${i}'> ${option} <br>`;
+            });
+            
+            quizDiv.appendChild(questionDiv);
+        });
+        
+        function submitQuiz() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                let selected = document.querySelector(`input[name='q${index}']:checked`);
+                if (selected && parseInt(selected.value) === q.answer) {
+                    score++;
+                }
+            });
+            
+            let resultText;
+            if (score === questions.length) {
+                resultText = "Genius! Your IQ is exceptionally high!";
+            } else if (score >= questions.length / 2) {
+                resultText = "Above average IQ! Well done.";
+            } else {
+                resultText = "Keep practicing! Your IQ will improve.";
+            }
+            
+            document.getElementById("result").innerText = `Score: ${score}/${questions.length} - ${resultText}`;
+        }
+    </script>
+</body>
+</html>
